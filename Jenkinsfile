@@ -6,6 +6,7 @@ pipeline {
         GIT_REPO = "https://github.com/tmk-computers/dotnet-core-api-starter"
         DEPLOY_DIR = "/home/root/tmkapi-prod" // Path on VPS with docker-compose.prod.yml
         VPS_IP = "72.60.111.143"
+        DOCKER_COMPOSE_FILE = "docker-compose.prod.yml"
     }
 
     stages {
@@ -25,7 +26,7 @@ pipeline {
                 ssh root@${VPS_IP} '
                     cd ${DEPLOY_DIR} &&
                     git pull origin main &&
-                    docker compose up -d --build
+                    docker compose -f ${DOCKER_COMPOSE_FILE} up -d --build
                 '
                 """
             }
