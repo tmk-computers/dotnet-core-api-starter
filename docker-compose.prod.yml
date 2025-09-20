@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: tmk-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPassword123!
+      MYSQL_DATABASE: tmkdb
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+
+  tmkapi:
+    build:
+      context: .          # Build from current repo
+      dockerfile: Dockerfile
+    container_name: tmkapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=server=db;port=3306;database=tmkdb;user=root;password=RootPassword123!
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tmkapi.rule=Host(`api.tmkcomputers.in`)"
+      - "traefik.http.routers.tmkapi.entrypoints=websecure"
+      - "traefik.http.routers.tmkapi.tls=true"
+      - "traefik.http.routers.tmkapi.tls.certresolver=myresolver"
+    depends_on:
+      - db
+    restart: unless-stopped
+
+volumes:
+  db_data:
