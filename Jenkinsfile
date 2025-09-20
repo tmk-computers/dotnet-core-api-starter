@@ -24,7 +24,7 @@ pipeline {
                 // SSH into VPS, pull latest code, build image, and run containers
                 sshagent(credentials: ['vps-ssh']) {
                     sh """
-                    ssh root@${VPS_IP} '
+                    ssh jenkins@${VPS_IP} '
                         cd ${DEPLOY_DIR} &&
                         git pull origin main &&
                         docker compose -f ${DOCKER_COMPOSE_FILE} up -d --build
@@ -38,7 +38,7 @@ pipeline {
             steps {
                 echo "Removing dangling Docker images on VPS..."
                 sh """
-                ssh root@${VPS_IP} '
+                ssh jenkins@${VPS_IP} '
                     docker image prune -f
                 '
                 """
