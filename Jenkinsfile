@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_NAME = "tmkapi"
         GIT_REPO = "https://github.com/tmk-computers/dotnet-core-api-starter"
-        DEPLOY_DIR = "/home/root/tmkapi-prod" // Path on VPS with docker-compose.prod.yml
+        DEPLOY_DIR = "/var/lib/jenkins/tmkapi-prod" // Path on VPS with docker-compose.prod.yml
         VPS_IP = "72.60.111.143"
         DOCKER_COMPOSE_FILE = "docker-compose.prod.yml"
     }
