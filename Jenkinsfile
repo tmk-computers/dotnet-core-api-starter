@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = "tmkapi"
-        GIT_REPO = "http://github.com/tmk-computers/backend-api-starter"
+        GIT_REPO = "https://github.com/tmk-computers/dotnet-core-api-starter"
         DEPLOY_DIR = "/home/root/tmkapi-prod" // Path on VPS with docker-compose.prod.yml
         VPS_IP = "72.60.111.143"
     }
